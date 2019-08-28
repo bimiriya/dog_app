@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/awesomeplete.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+    <div class="container bg-white">
+        <div class="d-flex justify-content-center pt-3">
+            <div class="alert alert-info" role="alert">
+                DOG LOOKUP
+            </div>
+        </div>
+        <div class="">
+            <input 
+            id="breed-filter" 
+            class="form-control form-control-lg text-center awesomplete" 
+            type="text" 
+            placeholder="Search breed">
+        </div>
+        <div>
+            <ul 
+            data-bind="foreach: searches"
+            class="list-unstyled mt-3 d-flex justify-content-around"
+            >
+                <li>
+                    <small 
+                    class="rounded text-dark alert-info p-2 text-light pointer" 
+                    data-bind="text: selected_breed.name() + ' x', click: function(item) {$root.remove_search($data)}"
+                    ></small>
+                </li>
+            </ul>
+        </div>
+        <hr>
+
+
+        <div 
+        class="accordion" 
+        id="searchResult"
+        data-bind="foreach: {data: searches, as: 'search'}"
+        >
+                <div class="card">
+                  <div class="card-header" data-bind="attr: {id: 'card-'+$index}">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-capitalize" 
+                      data-bind="text: search.selected_breed.name(), attr: {'data-target': '#collapse-'+$index(), 'aria-controls': 'collapse-'+$index()}"
+                      type="button" data-toggle="collapse" aria-expanded="true">
+                        
+                      </button>
+                    </h2>
+                  </div>
+              
+                  <div class="collapse show" 
+                  data-bind="attr: {'aria-labelledby': 'card-'+$index, id: 'collapse-'+$index()}"
+                  data-parent="#searchResult">
+                    <div class="card-body">
+                        <div>
+                            <ul
+                            class="list-unstyled d-flex justify-content-around"
+                            data-bind="foreach: search.selected_breed.sub_breeds"
+                            >
+                              <li>
+                                  <div class="btn-group-toggle" data-toggle="buttons">
+                                    <label
+                                    data-bind="text: $data, click: function(sub_breed) {$parent.filter_breed($data)}"
+                                    class="btn btn-sm pointer btn-info active">
+                                        <input type="checkbox" checked autocomplete="off"> 
+                                    </label>
+                                  </div>
+                              </li>
+                            </ul>
+                        </div>
+                        <div class="images" 
+                        data-bind="foreach: page_data"
+                        >
+                          <img 
+                          class="rounded gallery-item mb-1"
+                          width="100vm"
+                          height="100vm"
+                          data-bind="attr: {src: $data}" alt="">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-around">
+                        <!-- ko if: page.current() > 1 -->
+                        <button 
+                        data-bind="click: prev_page"
+                        class="btn btn-info">
+                            previous
+                        </button>
+                        <!-- /ko -->
+                        <!-- ko if: page.current() == 1 -->
+                        <button 
+                        disabled
+                        class="btn btn-info">
+                            previous
+                        </button>
+                        <!-- /ko -->
+                        <button 
+                        data-bind="text: page.current()"
+                        class="btn btn-info"></button>
+                        <button 
+                        data-bind="click: next_page"
+                        class="btn btn-info">
+                            next
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    </div>
+
+
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="static/js/knockout.js"></script>
+  <script src="static/js/awesomeplete.js"></script>
+  <script src="static/js/app.js"></script>
+</body>
+</html>

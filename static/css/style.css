@@ -1,0 +1,8 @@
+.pointer {
+    cursor: pointer;
+}
+
+.gallery-item {
+    object-fit:cover;
+    object-position:center;
+}
