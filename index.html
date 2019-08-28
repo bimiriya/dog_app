@@ -16,10 +16,10 @@
                 DOG LOOKUP
             </div>
         </div>
-        <div class="">
+        <div class="d-flex justify-content-center">
             <input 
             id="breed-filter" 
-            class="form-control form-control-lg text-center awesomplete" 
+            class="form-control w-100 form-control-lg text-center awesomplete" 
             type="text" 
             placeholder="Search breed">
         </div>
@@ -62,14 +62,18 @@
                         <div>
                             <ul
                             class="list-unstyled d-flex justify-content-around"
-                            data-bind="foreach: search.selected_breed.sub_breeds"
+                            data-bind="foreach: {data: search.selected_breed.sub_breeds, as: 'sub_breed'} "
                             >
                               <li>
-                                  <div class="btn-group-toggle" data-toggle="buttons">
+                                  <div
+                                  class="btn-group-toggle" data-toggle="buttons">
                                     <label
-                                    data-bind="text: $data, click: function(sub_breed) {$parent.filter_breed($data)}"
-                                    class="btn btn-sm pointer btn-info active">
-                                        <input type="checkbox" checked autocomplete="off"> 
+                                    
+                                    data-bind="text: sub_breed, click: function(sub_breed) {$parent.unfilter_search(sub_breed)},
+                                    "
+                                    class="btn aaa btn-sm pointer btn-info active">
+                                        <input
+                                        type="checkbox" checked autocomplete="off"> 
                                     </label>
                                   </div>
                               </li>

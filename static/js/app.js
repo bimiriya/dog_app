@@ -16,7 +16,7 @@ function Search(selected_breed) {
     self.page_data = ko.observableArray([])
     self.unfilter = []
     self.unfilter_search = function(sub_breed) {
-        var breed = self.unfilter.push(sub_breed)
+        self.unfilter.push(sub_breed)
         self.api_call()
     }
     self.urls = function() {
@@ -38,6 +38,7 @@ function Search(selected_breed) {
     self.api_call = function() {
         var urls = self.urls()
         for (var i in urls) {
+            if (urls[i] != undefined) {
             $.get(urls[i])
             .done((data) => {
                 var response = data['message']
@@ -50,6 +51,7 @@ function Search(selected_breed) {
                 var end = self.page.pagination * self.page.current()
                 self.page_data(self.search_data().slice(start,end))
             })
+            }
             
         }
 
